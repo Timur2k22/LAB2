@@ -17,7 +17,7 @@ public class YamlReader extends Reader {
         try {
             map = mapper.readValue(
                     new File(fileName), new TypeReference<Map<String, Reactor>>() {
-                    });
+            });
             for (Map.Entry<String, Reactor> entry : map.entrySet()) {
                 entry.getValue().setSource(fileName);
             }

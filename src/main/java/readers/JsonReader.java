@@ -13,19 +13,14 @@ public class JsonReader extends Reader {
     public Map<String, Reactor> readFile(String fileName) {
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Reactor> map;
-        if (fileName.endsWith(".json")) {
-            try {
-                map = objectMapper.readValue(new File(fileName), new TypeReference<Map<String, Reactor>>() {
-                });
-                for (Map.Entry<String, Reactor> entry : map.entrySet()) {
-                    entry.getValue().setSource(fileName);
-                }
-            } catch (IOException e) {
-                throw new RuntimeException();
+        try {
+            map = objectMapper.readValue(new File(fileName), new TypeReference<Map<String, Reactor>>() {
+            });
+            for (Map.Entry<String, Reactor> entry : map.entrySet()) {
+                entry.getValue().setSource(fileName);
             }
-        }else{
-            XMLReader reader = new XMLReader();
-            return reader.readFile(fileName);
+        } catch (IOException e) {
+            throw new RuntimeException();
         }
 
         return map;
